@@ -3,13 +3,13 @@ import React from 'react';
 // import './App.css';
 import Navbar from "./components/Navbar/index";
 import Directory from "./pages/Directory";
-import Search from './components/Search';
+
 
 function App() {
   return (
     <div>
 <Navbar/>
-<Search/>
+{/* <Search/> */}
 <Directory/>
     </div>
 
