@@ -143,15 +143,17 @@ class Directory extends Component {
         return (
             <div>
                 <Search onChange = {this.handleInputChange}/>
+    <div className="container">
+    <table className="table table-striped mt-5">
     
-            <table className="table table-striped mt-5">
-    
-                <TableHead onClickNameA={()=>this.handleAscend("name")} onClickNameD={()=>this.handleDescend("name")} onClickdobA={()=>this.handleAscend("year")} onClickdobD={()=>this.handleDescend("year")}/>
-                <tbody className="text-center">
-                    {employees}
-                </tbody>
-    
-            </table>
+    <TableHead onClickNameA={()=>this.handleAscend("name")} onClickNameD={()=>this.handleDescend("name")} onClickdobA={()=>this.handleAscend("year")} onClickdobD={()=>this.handleDescend("year")} onClickPhoneA={()=>this.handleAscend("phone")} onClickPhoneD={()=>this.handleDescend("phone")} onClickEmailA={()=>this.handleAscend("email")} onClickEmailD={()=>this.handleDescend("email")}/>
+    <tbody className="text-center">
+        {employees}
+    </tbody>
+
+</table>
+    </div>
+
             </div>
     
         )
