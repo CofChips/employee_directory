@@ -1,10 +1,4 @@
 import React, { useEffect, useState, Component } from "react";
-// import API from "../utils/API";
-// import UserContext from "../utils/userContext";
-// import CardContainer from "../components/CardContainer";
-// import Row from "../components/Row";
-// import LanguageContext from "../utils/LanguageContext";
-// import LanguageSelector from "../components/LanguageSelector";
 import TableHead from "../components/TableHead/index";
 import "./Directory.css"
 import Employees from "../Employees.json";
@@ -17,9 +11,9 @@ function swap(items, firstIndex, secondIndex) {
     items[secondIndex] = temp;
 }
 
-function selectionSort(items) {
-
-    var len = items.length;
+function selectionSort(items, input) {
+    var newArray = items
+    var len = newArray.length;
     var min;
 
     for (var i = 0; i < len; i++) {
@@ -29,7 +23,7 @@ function selectionSort(items) {
 
 
         for (var j = i + 1; j < len; j++) {
-            if (items[j].email > items[min].email) {
+            if (newArray[j][input] < newArray[min][input]) {
                 min = j;
             }
         }
@@ -39,11 +33,36 @@ function selectionSort(items) {
         }
     }
 
-    return items;
+    return newArray;
+}
+
+function selectionSortD(items, input) {
+    var newArray = items
+    var len = newArray.length;
+    var min;
+
+    for (var i = 0; i < len; i++) {
+
+
+        min = i;
+
+
+        for (var j = i + 1; j < len; j++) {
+            if (newArray[j][input] > newArray[min][input]) {
+                min = j;
+            }
+        }
+
+        if (i !== min) {
+            swap(items, i, min);
+        }
+    }
+
+    return newArray;
 }
 
 class Directory extends Component {
-    // Setting the component's initial state
+
     state = {
       Employees,
       search: "",
@@ -51,15 +70,10 @@ class Directory extends Component {
     };
 
     handleInputChange = event => {
-        // Getting the value and name of the input which triggered the change
+
         let value = event.target.value;
         console.log(value)
-        // const name = event.target.name;
-    
-        // if (name === "password") {
-        //   value = value.substring(0, 15);
-        // }
-        // Updating the input's state
+
         this.setState({
           search: value
         });
@@ -79,24 +93,30 @@ class Directory extends Component {
           let newArray = []
           let employeeState = this.state.Employees
           let lowerValue = value.toLowerCase();
-          let stringValue = value.toString();
           if(value){
             for (let i = 0; i<employeeState.length; i++){
-                if(employeeState[i].name.toLowerCase().includes(lowerValue) || employeeState[i].phone.includes(stringValue) || employeeState[i].email.toLowerCase().includes(lowerValue) || employeeState[i].dob.includes(stringValue)  ){
+                if(employeeState[i].name.toLowerCase().includes(lowerValue) || employeeState[i].email.toLowerCase().includes(lowerValue) || employeeState[i].dob.includes(value) || employeeState[i].phone.includes(value) ){
                     newArray.push(employeeState[i])
                 }
-                
             }
-            console.log(newArray)
             this.setState({ ListEmployee: newArray})
-  
-            console.log("New Emp: ", this.state.Employees)
           }
           else{
             this.setState({ ListEmployee: employeeState})
           }
 
       }
+
+      handleAscend = (id) => { 
+          console.log("this is the ascend id: ",id)
+          this.setState({ ListEmployee: selectionSort(this.state.Employees,id)})
+      }
+
+      handleDescend = (id) => { 
+        console.log("this is the ascend id: ",id)
+        this.setState({ ListEmployee: selectionSortD(this.state.Employees,id)})
+    }
+
 
     // const [employeeList, setEmployeeList] = useState(Employees);
 
@@ -126,7 +146,7 @@ class Directory extends Component {
     
             <table className="table table-striped mt-5">
     
-                <TableHead />
+                <TableHead onClickNameA={()=>this.handleAscend("name")} onClickNameD={()=>this.handleDescend("name")} onClickdobA={()=>this.handleAscend("year")} onClickdobD={()=>this.handleDescend("year")}/>
                 <tbody className="text-center">
                     {employees}
                 </tbody>
