@@ -146,7 +146,7 @@ class Directory extends Component {
     <div className="container">
     <table className="table table-striped mt-5">
     
-    <TableHead onClickNameA={()=>this.handleAscend("name")} onClickNameD={()=>this.handleDescend("name")} onClickdobA={()=>this.handleAscend("year")} onClickdobD={()=>this.handleDescend("year")} onClickPhoneA={()=>this.handleAscend("phone")} onClickPhoneD={()=>this.handleDescend("phone")} onClickEmailA={()=>this.handleAscend("email")} onClickEmailD={()=>this.handleDescend("email")}/>
+    <TableHead onClickA={(e)=>this.handleAscend(e.target.getAttribute("value"))} onClickD={(e)=>this.handleDescend(e.target.getAttribute("value"))} />
     <tbody className="text-center">
         {employees}
     </tbody>
