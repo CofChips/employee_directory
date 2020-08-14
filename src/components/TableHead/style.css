@@ -1,0 +1,7 @@
+.caret {
+    transition: transform .2s;
+  }
+
+  .caret:hover {
+    transform: scale(1.4); 
+  }
